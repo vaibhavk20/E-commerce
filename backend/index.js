@@ -4,12 +4,16 @@ const express = require("express");
 const { connection } = require("./config/db");
 const { productRouter } = require("./routes/productRoute");
 const app = express();
-connection;
+const cors = require("cors");
+const errorMiddleware = require("./middleware/error");
 
+app.use(cors());
 app.use(express.json());
 
 // config
 // dotenv.config({ path: "backend/config/config.env" });
+
+app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Ecommerce");
