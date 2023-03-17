@@ -6,6 +6,7 @@ const { productRouter } = require("./routes/productRoute");
 const app = express();
 const cors = require("cors");
 const errorMiddleware = require("./middleware/error");
+const { userRouter } = require("./routes/userRoute");
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/products", productRouter);
+
+app.use("/api/v1", userRouter);
 
 app.listen(process.env.port, async () => {
   try {

@@ -16,7 +16,7 @@ class ApiFeatures {
           },
         }
       : {};
-    console.log(keyword);
+    // console.log(keyword);
     this.query = this.query.find({ ...keyword });
     return this;
   }
@@ -36,7 +36,7 @@ class ApiFeatures {
     // stringify is help to the add $ sign to the lt,gt,lte,gte
     let queryStr = JSON.stringify(queryCopy);
 
-    console.log(queryStr);
+    // console.log(queryStr);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
 
     this.query = this.query.find(JSON.parse(queryStr));
@@ -47,7 +47,15 @@ class ApiFeatures {
     return this;
   }
 
-  //
+  //pagenation
+pagination(resultPerPage) {
+    const currentPage = Number(this.queryStr.page) || 1;
+    const skip = resultPerPage * (currentPage - 1);
+
+    this.query = this.query.limit(resultPerPage).skip(skip);
+
+    return this;
+  }
 }
 
 module.exports = ApiFeatures;
